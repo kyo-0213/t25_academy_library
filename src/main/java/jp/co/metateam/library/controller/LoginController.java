@@ -22,7 +22,7 @@ public class LoginController {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:book/index";
         }
-        return "redirect:/login";
+        return "redirect:/login";//testコメント
     }
 }
 
