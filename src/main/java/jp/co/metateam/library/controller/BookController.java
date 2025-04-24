@@ -1,5 +1,6 @@
 package jp.co.metateam.library.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.apache.commons.lang3.StringUtils;
 
 import jakarta.validation.Valid;
+import jp.co.metateam.library.model.Account;
+import jp.co.metateam.library.model.AccountDto;
 import jp.co.metateam.library.model.BookMst;
 import jp.co.metateam.library.model.BookMstDto;
 import jp.co.metateam.library.service.BookMstService;
 import lombok.extern.log4j.Log4j2;
+
 
 /**
  * 書籍関連クラス
@@ -47,8 +52,62 @@ public class BookController {
         if (!model.containsAttribute("bookMstDto")) {
             model.addAttribute("bookMstDto", new BookMstDto());
         }
-
         return "book/add";
     }
-    
-}
+
+    @PostMapping("/book/add")
+    public String add(@Valid @ModelAttribute BookMstDto bookMstDto, BindingResult result, RedirectAttributes ra, Model model){
+        boolean errTitleFlg = false;
+        boolean errIsbnFlg = false;
+        //BookMst titlelExist = this.bookMstService.selectByTitle(bookMstDto.getTitle());
+        // BookMst isbnExist = this.bookMstService.selectByIsbn(bookMstDto.getIsbn());
+        String title = bookMstDto.getTitle();
+        String isbn = bookMstDto.getIsbn();
+        
+        String errorMsgTitle = "";
+        List <String> errorIsbnList = new ArrayList<String>();
+        
+        if (StringUtils.isEmpty(title)) {
+            errorMsgTitle= "書籍名は必須です";
+            model.addAttribute("errorMsgTitle",errorMsgTitle);
+            return "book/add";
+        }
+        if (title.length() > 255) {
+            errorMsgTitle= "書籍名は255文字以下で入力してください";
+            model.addAttribute("errorMsgTitle",errorMsgTitle);
+            return "book/add";
+        }
+        if (isbn== null || isbn.trim().isEmpty()) {
+            errorIsbnList.add("ISBNは必須です");
+            result.rejectValue("isbn", "error.value", "ISBNは必須です");
+                errIsbnFlg = true;
+        }
+        if (isbn.length() != 13) {
+            errorIsbnList.add("ISBNは13文字で入力してください");
+            result.rejectValue("isbn", "error.value", "ISBNは13文字で入力してください");
+            errIsbnFlg = true;
+        }
+        if (!isbn.matches("^[0-9]+")) {
+            errorIsbnList.add("ISBNは半角数字で入力してください");
+            result.rejectValue("isbn", "error.value", "ISBNは半角数字で入力してください");
+            errIsbnFlg = true;
+        }
+        if (!errorIsbnList.isEmpty()) {
+        model.addAttribute("errorIsbnList", errorIsbnList);
+        return "book/add";
+        }
+
+        if(bookMstDto.getIsbn()!= null){
+            errorIsbnList.add("登録済みのISBNです");
+            result.rejectValue("isbn", "error.value", "登録済みのISBNです");
+            model.addAttribute("errorIsbnList", errorIsbnList);
+            errIsbnFlg= true;
+            return "book/add";
+        }
+        
+        this.bookMstService.save(bookMstDto);
+        return "redirect:/book/index";
+        }
+    }
+
+
