@@ -41,6 +41,11 @@ public class BookController {
     public String index(Model model) {
         // 書籍を全件取得
         List<BookMstDto> bookMstList = this.bookMstService.findAvailableWithStockCount();
+            // List<String> allTitles = bookMstRepository.findAllTitles();
+            // List<String> allIsbns = bookMstRepository.findAllIsbns();
+    
+            // model.addAttribute("AllTitles", allTitles);
+            // model.addAttribute("AllIsbns", allIsbns);
         
         model.addAttribute("bookMstList", bookMstList);
 
