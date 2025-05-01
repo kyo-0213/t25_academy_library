@@ -1,18 +1,20 @@
 .books_table {
- width: 100%;
- text-align: left;
- border-collapse: collapse;
- border-spacing: 0;
- border-radius:10px;
+  width: 60%;
+  text-align: left;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-radius:10px;
+  margin: 0 auto;
+  font-size: 0.8em;
 }
 
 .books_table th{
   padding: 10px;
   background: rgba(0,0,0,0.06);
-  padding: 13px;
+  padding: 15px;
   border: solid 1px #B9B9B9;
   color: #545454;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .books_table td{
@@ -21,7 +23,7 @@
   background: #FFFFFF;
   border: solid 1px #B9B9B9;
   padding: 13px;
-  font-size: 20px;
+  font-size: 13px;
 }
 
 .books_table td:nth-child(1){

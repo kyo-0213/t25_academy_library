@@ -22,17 +22,22 @@
                         </div><br>
                         <div class="form_block">
                             <label for="title">書籍名<span style="color:red;">*</span></label><br>
-                            <input type="text" id="title" th:field="*{title}" placeholder="書籍名を入力"><br>
+                            <input type="text" id="title" th:field="*{title}" placeholder="書籍名を入力" style="font-size: 15px; padding: 10px; width: 100%; border: 2px solid #ccc; border-radius: 4px;"><br>
                             <div th:if="${errorMsgTitle}" th:text="${errorMsgTitle}" class="error" style="color:red; font-size: 0.5em;">
                             </div>
                         </div>
                         <div class="form_block">
                             <label for="isbn">ISBN<span style="color:red;">*</span></label><br>
-                            <input type="text" id="isbn" th:field="*{isbn}" placeholder="ISBNを入力"><br>
-                            <div th:if="${errorIsbnList}" th:errors="*{isbn}" class="error" style="color:red; font-size: 0.5em;"></div>
-                        <br></div>
+                            <input type="text" id="isbn" th:field="*{isbn}" placeholder="ISBNを入力" style="font-size: 15px; padding: 10px; width: 100%; border: 2px solid #ccc; border-radius: 4px;"><br>
+                            <div th:if="${not #lists.isEmpty(errorIsbnList)}" th:each="error : ${errorIsbnList}" class="error" style="color:red; font-size: 0.5em;">
+                                <p th:text="${error}"></p>
+                            </div>
+                            <br>
+                        </div>
                         <div class="mb30 flexarea">
-                            <button type="submit">保存</button>
+                            <button type="submit" style="display: block; margin: 0 auto; background-color: #90EE90; padding: 10px 20px; border-radius: 8px; text-decoration: none; color: black; border: none;">
+                                保存
+                            </button>
                         </div>
                     </form>
                 </div>

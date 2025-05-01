@@ -13,6 +13,29 @@
             <div class="inner_contens">
                 <div class="page_title">書籍一覧</div>
             </div>
+            <div style="display: flex;">
+                <div style="display: flex; align-items: center; margin-left: auto; background-color: #90EE90; padding: 10px; border-radius: 8px;">
+                    <img th:src="@{/images/icons/add.png}" alt="アイコン" style="height: 16px; vertical-align: middle; margin-right: 5px;">
+                    <a class="menu_link" style="text-decoration: none; color: black;" th:href="@{/book/add}">書籍登録</a>
+                </div>
+            </div>
+                        <br>
+            <div>
+                <table class="books_table">
+                    <thead>
+                        <tr>
+                            <th>書籍名</th>
+                            <th>ISBN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="book : ${bookMstList}">
+                            <td th:text="${book.title}">書籍名 </td>
+                            <td th:text="${book.isbn}">ISBN</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div th:replace="~{common :: footer}"></div>
