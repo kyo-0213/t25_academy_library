@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import jp.co.metateam.library.model.Account;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, String> {
 
 	@Query(value = "SELECT * FROM accounts WHERE email = ?1", nativeQuery = true)
 	Account selectByEmail(String email);
