@@ -14,11 +14,14 @@
                 <div class="page_title">書籍一覧</div>
             </div>
             <div style="display: flex;">
-                <a class="menu_link" style="margin-left: auto; border: 2px solid #28a745; padding: 10px 20px; background-color: #90EE90; text-decoration: none; color: black;" th:href="@{/book/add}">書籍登録</a>
+                <div style="display: flex; align-items: center; margin-left: auto; background-color: #90EE90; padding: 10px; border-radius: 8px;">
+                    <img th:src="@{/images/icons/add.png}" alt="アイコン" style="height: 16px; vertical-align: middle; margin-right: 5px;">
+                    <a class="menu_link" style="text-decoration: none; color: black;" th:href="@{/book/add}">書籍登録</a>
+                </div>
             </div>
-            <br>
+                        <br>
             <div>
-                <table class="books_table"  style="font-size: 0.3em; width: 60%; margin: 0 auto; border-collapse: collapse;">
+                <table class="books_table">
                     <thead>
                         <tr>
                             <th>書籍名</th>
